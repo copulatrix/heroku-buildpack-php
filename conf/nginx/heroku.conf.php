@@ -12,7 +12,7 @@ http {
 	#tcp_nopush     on;
 
 	#keepalive_timeout  0;
-	keepalive_timeout  65;
+	keepalive_timeout  130;
 
 	#gzip  on;
 
@@ -52,6 +52,15 @@ http {
 		listen <?=getenv('PORT')?:'8080'?>;
 		# FIXME: breaks redirects with foreman
 		port_in_redirect off;
+
+		keepalive_timeout 300;
+		proxy_read_timeout 300;
+		fastcgi_connect_timeout 300;
+		fastcgi_send_timeout 300;
+		fastcgi_read_timeout 300;
+		proxy_connect_timeout 300;
+		proxy_send_timeout 300;
+		send_timeout 300;
 
 		root "<?=getenv('DOCUMENT_ROOT')?:getenv('HEROKU_APP_DIR')?:getcwd()?>";
 
